@@ -35,11 +35,11 @@ class DB
 
                 foreach($arg[0] as $key => $value) {
                     //變數在運算式內需要先宣告
-                    // $tmp 暫時的字串
+                    // $tmp 暫時的字串 
                     $tmp=$tmp."`".$key."`='".$value."' && ";
                 }
-
-                echo $tmp;
+                echo implode(" && ",["`欄位`='值'","`欄位`='值'","`欄位`='值'"]);
+                // echo $tmp;
                 echo "<br>";
                 // echo "處理陣列";
             }else {
