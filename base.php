@@ -30,7 +30,17 @@ class DB
 
         if(isset($arg[0])) {
             if(is_array($arg[0])) {
-                echo "處理陣列";
+                // ["欄位"]=>"值""欄位"=>"值"]
+                // where `欄位`='值' && `欄位`='`值'
+
+                foreach($arg[0] as $key => $value) {
+                    //變數在運算式內需要先宣告
+                    $tmp=$tmp."`".$key."`='".$value."' && ";
+                }
+
+                echo $tmp;
+                echo "<br>";
+                // echo "處理陣列";
             }else {
                 //當它是字串
                 $sql=$sql . $arg[0];
@@ -42,7 +52,7 @@ class DB
             }
         }
 
-        // echo $sql;
+        echo $sql;
         // query: 查詢
         return $this->pdo->query($sql)->fetchAll();
     }
@@ -54,16 +64,16 @@ class DB
 $User=new DB("user");
 
 echo "<pre>";
-print_r($User->all());
+print_r($User->all(['name'=>'amy','visible'=>'Y']));
 echo "</pre>";
 
-echo "<pre>";
-print_r($User->all(" where name='amy' "));
-echo "</pre>";
+// echo "<pre>";
+// print_r($User->all(" where name='amy' "));
+// echo "</pre>";
 
-echo "<pre>";
-print_r($User->all(" where `visible`='Y' " , " order by `id` DESC" ));
-echo "</pre>";
+// echo "<pre>";
+// print_r($User->all(" where `visible`='Y' " , " order by `id` DESC" ));
+// echo "</pre>";
 
 
 
