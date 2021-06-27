@@ -22,24 +22,51 @@ class DB
 
 
 
-    // $arg: argument; 引數
+    // $arg: argument; 引數>
     // ... 是不定參數
-    public function all(...$arg)
-    {
+    public function all(...$arg) {
         $sql="select * from $this->table ";
-    // query: 查詢
+        // $arg=[] or [陣列],[SQL字串],[陣列,SQL字串],
+
+        if(isset($arg[0])) {
+            if(is_array($arg[0])) {
+                echo "處理陣列";
+            }else {
+                //當它是字串
+                $sql=$sql . $arg[0];
+            }
+
+            if(isset($arg[1])) {
+                //當它是字串
+                $sql=$sql . $arg[1];
+            }
+        }
+
+        // echo $sql;
+        // query: 查詢
         return $this->pdo->query($sql)->fetchAll();
     }
 }
 
-$db=new DB("stories");
+
+//  大寫代表特別意義，是我們寫程式的人自己設定，可能是常數或物件
+// 一般變數用小寫或是駝峰式命名
+$User=new DB("user");
 
 echo "<pre>";
-print_r($db->all());
+print_r($User->all());
 echo "</pre>";
-
-$db2=new DB("user");
 
 echo "<pre>";
-print_r($db2->all());
+print_r($User->all(" where name='amy' "));
 echo "</pre>";
+
+echo "<pre>";
+print_r($User->all(" where `visible`='Y' " , " order by `id` DESC" ));
+echo "</pre>";
+
+
+
+
+
+?>
