@@ -35,6 +35,7 @@ class DB
 
                 foreach($arg[0] as $key => $value) {
                     //變數在運算式內需要先宣告
+                    // $tmp 暫時的字串
                     $tmp=$tmp."`".$key."`='".$value."' && ";
                 }
 
