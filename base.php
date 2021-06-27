@@ -31,16 +31,25 @@ class DB
         if(isset($arg[0])) {
             if(is_array($arg[0])) {
                 // ["欄位"]=>"值""欄位"=>"值"]
-                // where `欄位`='值' && `欄位`='`值'
+                // where `欄位`='值' && `欄位`='值'
+                // "欄位"=>"值" ====> `欄位`='值'
 
                 foreach($arg[0] as $key => $value) {
-                    //變數在運算式內需要先宣告
-                    // $tmp 暫時的字串 
-                    $tmp=$tmp."`".$key."`='".$value."' && ";
+                    // 正規表達式
+                    // $tmp[]=sprintf("%s你好，這是你的錢一共%d",$name,$money); 
+                    $tmp[]=sprintf("`%s`='%s'",$key,$value); 
                 }
-                echo implode(" && ",["`欄位`='值'","`欄位`='值'","`欄位`='值'"]);
+
+                    // print_r($tmp);
+
+                // &&前後一定要加空白
+                // print_r(implode(" && ",$tmp));
+                // echo implode(" && ",["`欄位`='值'","`欄位`='值'","`欄位`='值'"]);
+
+                $sql=$sql . " where " . implode(" && ",$tmp);
+
                 // echo $tmp;
-                echo "<br>";
+                // echo "<br>";
                 // echo "處理陣列";
             }else {
                 //當它是字串
@@ -53,7 +62,8 @@ class DB
             }
         }
 
-        echo $sql;
+        // 用來檢查語法哪邊出問題
+        // echo $sql;
         // query: 查詢
         return $this->pdo->query($sql)->fetchAll();
     }
@@ -65,7 +75,7 @@ class DB
 $User=new DB("user");
 
 echo "<pre>";
-print_r($User->all(['name'=>'amy','visible'=>'Y']));
+print_r($User->all(['visible'=>'Y']));
 echo "</pre>";
 
 // echo "<pre>";
