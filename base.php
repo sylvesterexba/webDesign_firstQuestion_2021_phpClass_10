@@ -37,7 +37,7 @@ class DB
                 foreach($arg[0] as $key => $value) {
                     // 正規表達式
                     // $tmp[]=sprintf("%s你好，這是你的錢一共%d",$name,$money); 
-                    $tmp[]=sprintf("`%s`='%s'",$key,$value); 
+                    $tmp[] = sprintf("`%s`='%s'",$key, $value); 
                 }
 
                     // print_r($tmp);
@@ -46,7 +46,7 @@ class DB
                 // print_r(implode(" && ",$tmp));
                 // echo implode(" && ",["`欄位`='值'","`欄位`='值'","`欄位`='值'"]);
 
-                $sql=$sql . " where " . implode(" && ",$tmp);
+                $sql = $sql . " where " . implode(" && ", $tmp);
 
                 // echo $tmp;
                 // echo "<br>";
@@ -67,6 +67,31 @@ class DB
         // query: 查詢
         return $this->pdo->query($sql)->fetchAll();
     }
+
+    // public function all(...$arg) {
+    public function count(...$arg) {
+      // $sql="select * from $this->table ";
+      $sql="select count(*) from $this->table ";
+
+      if(isset($arg[0])) {
+          if(is_array($arg[0])) {
+              foreach($arg[0] as $key => $value) {
+                  $tmp[] = sprintf("`%s`='%s'",$key, $value); 
+              }
+              $sql = $sql . " where " . implode(" && ", $tmp);
+          }else {
+              $sql=$sql . $arg[0];
+          }
+          if(isset($arg[1])) {
+              $sql=$sql . $arg[1];
+              
+          }
+      }
+
+      echo $sql;
+      // return $this->pdo->query($sql)->fetchAll();
+      return $this->pdo->query($sql)->fetchColumn();
+  }
 }
 
 
@@ -75,16 +100,16 @@ class DB
 $User=new DB("user");
 
 echo "<pre>";
-print_r($User->all(['visible'=>'Y']));
+print_r($User->count());
 echo "</pre>";
 
-// echo "<pre>";
-// print_r($User->all(" where name='amy' "));
-// echo "</pre>";
+echo "<pre>";
+print_r($User->count(" where name='amy' "));
+echo "</pre>";
 
-// echo "<pre>";
-// print_r($User->all(" where `visible`='Y' " , " order by `id` DESC" ));
-// echo "</pre>";
+echo "<pre>";
+print_r($User->count(" where `visible`='Y' " , " order by `id` DESC " ));
+echo "</pre>";
 
 
 
