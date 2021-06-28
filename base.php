@@ -163,8 +163,8 @@ class DB
             // `name`,`addr`,`tel`
 
             $sql="insert into $this->table 
-            (`".implode("`,`",array_keys($array))."`) values
-            ('".implode("','",$array) ."')";
+            (`".implode("`,`", array_keys($array))."`) values
+            ('".implode("','", $array) ."')";
         }
 
         echo $sql;
@@ -172,7 +172,11 @@ class DB
     }
 }
 
-
+//6.網頁導向功能 - to($url)
+function to($url)
+{
+    header("lication:".$url);
+}
 
 //  大寫代表特別意義，是我們寫程式的人自己設定，可能是常數或物件
 // 一般變數用小寫或是駝峰式命名
