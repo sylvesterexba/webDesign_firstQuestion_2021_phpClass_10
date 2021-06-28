@@ -120,16 +120,37 @@ class DB
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         // return $this->pdo->query($sql)->fetch();
     }
+
+    // public function find($id)
+    public function del($id)
+    {
+        // $sql="select * from $this->table ";
+        $sql=" delete from $this->table ";
+
+        if (is_array($id)) {
+            foreach ($id as $key => $value) {
+                $tmp[] = sprintf("`%s`='%s'", $key, $value);
+            }
+            $sql = $sql . " where " . implode(" && ", $tmp);
+        } else {
+            $sql=$sql . " where `id`='$id'";
+        }
+
+        echo $sql;
+        // return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $this->pdo->exec($sql);
+    }
 }
 
 
 
 //  大寫代表特別意義，是我們寫程式的人自己設定，可能是常數或物件
 // 一般變數用小寫或是駝峰式命名
-$User=new DB("user");
+// $User=new DB("user");
+$Store=new DB("stories");
 
 echo "<pre>";
-print_r($User->find(['level'=>2,'visible'=>"N"]));
+print_r($Store->del(2));
 echo "</pre>";
 
 // echo "<pre>";
