@@ -36,7 +36,7 @@ $hs=[
 // 提供所有資料表使用的物件
 class DB
 {
-    private $dsn="mysql:host=localhost; charset=utf8; dbname=db_story";
+    private $dsn="mysql:host=localhost; charset=utf8; dbname=db01";
     // $dsn: data source name;資料來源名稱
     private $root='root';
     private $password='12345';
@@ -122,7 +122,7 @@ class DB
             }
         }
 
-        echo $sql;
+        // echo $sql;
         // return $this->pdo->query($sql)->fetchAll();
         return $this->pdo->query($sql)->fetchColumn();
     }
@@ -150,7 +150,7 @@ class DB
         // if(isset($arg[1])) {
         //     $sql=$sql . $arg[1];
               
-        echo $sql;
+        // echo $sql;
         // return $this->pdo->query($sql)->fetchColumn();
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         // return $this->pdo->query($sql)->fetch();
@@ -172,7 +172,7 @@ class DB
             $sql=$sql . " where `id`='$id'";
         }
 
-        echo $sql;
+        // echo $sql;
         // return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $this->pdo->exec($sql);
     }
@@ -199,7 +199,7 @@ class DB
             ('".implode("','", $array) ."')";
         }
 
-        echo $sql;
+        // echo $sql;
         return $this->pdo->exec($sql);
     }
 }
@@ -210,25 +210,5 @@ function to($url)
     header("lication:".$url);
 }
 
-//  大寫代表特別意義，是我們寫程式的人自己設定，可能是常數或物件
-// 一般變數用小寫或是駝峰式命名
-// $User=new DB("user");
-$Store=new DB("stories");
+$Total=new DB('total');
 
-echo "<pre>";
-print_r($Store->save([
-                      'name'=>'Uber Eat',
-                      'intro_chinese'=>'吳柏毅',
-                      'file'=>'bg06.jpg',
-                      'intro_english'=>"buy something good to eat",
-                      'visible'=>'Y'
-                    ]));
-echo "</pre>";
-
-// echo "<pre>";
-// print_r($User->count(" where name='amy' "));
-// echo "</pre>";
-
-// echo "<pre>";
-// print_r($User->count(" where `visible`='Y' " , " order by `id` DESC " ));
-// echo "</pre>";
