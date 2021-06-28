@@ -151,18 +151,20 @@ class DB
         if (isset($array['id'])) {
             //update
             foreach ($array as $key => $value) {
-              // 如果key值是id就跳過不重覆顯示
-              if($key!='id') {
-                $tmp[] = sprintf("`%s`='%s'", $key, $value);
-              }
+                // 如果key值是id就跳過不重覆顯示
+                if ($key!='id') {
+                    $tmp[] = sprintf("`%s`='%s'", $key, $value);
+                }
             }
 
-            $sql="update $this->table set " . implode(',',$tmp) . " where `id` = '{$array['id']}'";
+            $sql="update $this->table set " . implode(',', $tmp) . " where `id` = '{$array['id']}'";
         } else {
             //insert
+            // `name`,`addr`,`tel`
 
-
-            $sql="insert into $this->table () values()";
+            $sql="insert into $this->table 
+            (`".implode("`,`",array_keys($array))."`) values
+            ('".implode("','",$array) ."')";
         }
 
         echo $sql;
@@ -178,11 +180,11 @@ class DB
 $Store=new DB("stories");
 
 echo "<pre>";
-print_r($Store->save(['intro_chinese'=>'載客人的',
-                      'id'=>3,
-                      'name'=>'99',
-                      'file'=>'bg05.jpg',
-                      'intro_english'=>"take someone to anywhere",
+print_r($Store->save([
+                      'name'=>'Uber Eat',
+                      'intro_chinese'=>'吳柏毅',
+                      'file'=>'bg06.jpg',
+                      'intro_english'=>"buy something good to eat",
                       'visible'=>'Y'
                     ]));
 echo "</pre>";
