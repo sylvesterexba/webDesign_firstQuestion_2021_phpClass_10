@@ -21,7 +21,7 @@ class DB
     }
 
 
-
+    //1.建立取出全部資料的函式 - all(…$arg)
     // $arg: argument; 引數>
     // ... 是不定參數
     public function all(...$arg)
@@ -69,6 +69,7 @@ class DB
         return $this->pdo->query($sql)->fetchAll();
     }
 
+    //2.計算筆數 - count(…$arg)
     // public function all(...$arg) {
     public function count(...$arg)
     {
@@ -94,6 +95,8 @@ class DB
         return $this->pdo->query($sql)->fetchColumn();
     }
 
+
+    //3.取得單筆資料 - find($id)
     // public function count(...$arg) {
     public function find($id)
     {
@@ -121,6 +124,7 @@ class DB
         // return $this->pdo->query($sql)->fetch();
     }
 
+    //4.刪除資料 - del($id)
     // public function find($id)
     public function del($id)
     {
@@ -140,6 +144,27 @@ class DB
         // return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $this->pdo->exec($sql);
     }
+
+    //5.新增或更新資料 - save($array)
+    public function save($array)
+    {
+        if (isset($array['id'])) {
+            //update
+            foreach ($array as $key => $value) {
+                $tmp[] = sprintf("`%s`='%s'", $key, $value);
+            }
+
+            $sql="update $this->table set " . implode(',',$tmp) . " where `id` = '{$array['id']}'";
+        } else {
+            //insert
+
+
+            $sql="insert into $this->table () values()";
+        }
+
+        echo $sql;
+        return $this->pdo->exec($sql);
+    }
 }
 
 
@@ -150,7 +175,13 @@ class DB
 $Store=new DB("stories");
 
 echo "<pre>";
-print_r($Store->del(2));
+print_r($Store->save(['intro_chinese'=>'載客人的',
+                      'id'=>3,
+                      'name'=>'99',
+                      'file'=>'bg05.jpg',
+                      'intro_english'=>"take someone to anywhere",
+                      'visible'=>'Y'
+                    ]));
 echo "</pre>";
 
 // echo "<pre>";
