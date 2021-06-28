@@ -151,7 +151,10 @@ class DB
         if (isset($array['id'])) {
             //update
             foreach ($array as $key => $value) {
+              // 如果key值是id就跳過不重覆顯示
+              if($key!='id') {
                 $tmp[] = sprintf("`%s`='%s'", $key, $value);
+              }
             }
 
             $sql="update $this->table set " . implode(',',$tmp) . " where `id` = '{$array['id']}'";
