@@ -38,17 +38,25 @@
         </div>
       </div>
       <?php
-                        $do=(isset($_GET['do']))?$_GET['do']:'main';
-            switch ($do) {
-                case "news":
-                    include "front/news.php";
-                    break;
-                case "login":
-                    include "front/login.php";
-                    break;
-                                        default:
-                                        include "front/main.php";
-            }
+                        $file=(isset($_GET['do']))?$_GET['do']:'main';
+                        $file="front/".$file.".php";
+                        // 先判斷檔案是否存在
+                        if(file_exists($file)) {
+                          include $file;
+                        }else {
+                          include "front/main.php";
+                        }
+
+            // switch ($do) {
+            //     case "news":
+            //         include "front/news.php";
+            //         break;
+            //     case "login":
+            //         include "front/login.php";
+            //         break;
+            //                             default:
+            //                             include "front/main.php";
+            // }
     ?>
       <div class="di di ad" style="height:540px; width:23%; padding:0px; margin-left:22px; float:left; ">
         <!--右邊-->
