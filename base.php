@@ -24,23 +24,24 @@ class DB
 
     // $arg: argument; 引數>
     // ... 是不定參數
-    public function all(...$arg) {
+    public function all(...$arg)
+    {
         $sql="select * from $this->table ";
         // $arg=[] or [陣列],[SQL字串],[陣列,SQL字串],
 
-        if(isset($arg[0])) {
-            if(is_array($arg[0])) {
+        if (isset($arg[0])) {
+            if (is_array($arg[0])) {
                 // ["欄位"]=>"值""欄位"=>"值"]
                 // where `欄位`='值' && `欄位`='值'
                 // "欄位"=>"值" ====> `欄位`='值'
 
-                foreach($arg[0] as $key => $value) {
+                foreach ($arg[0] as $key => $value) {
                     // 正規表達式
-                    // $tmp[]=sprintf("%s你好，這是你的錢一共%d",$name,$money); 
-                    $tmp[] = sprintf("`%s`='%s'",$key, $value); 
+                    // $tmp[]=sprintf("%s你好，這是你的錢一共%d",$name,$money);
+                    $tmp[] = sprintf("`%s`='%s'", $key, $value);
                 }
 
-                    // print_r($tmp);
+                // print_r($tmp);
 
                 // &&前後一定要加空白
                 // print_r(implode(" && ",$tmp));
@@ -48,15 +49,15 @@ class DB
 
                 $sql = $sql . " where " . implode(" && ", $tmp);
 
-                // echo $tmp;
+            // echo $tmp;
                 // echo "<br>";
                 // echo "處理陣列";
-            }else {
+            } else {
                 //當它是字串
                 $sql=$sql . $arg[0];
             }
 
-            if(isset($arg[1])) {
+            if (isset($arg[1])) {
                 //當它是字串
                 $sql=$sql . $arg[1];
             }
@@ -69,30 +70,58 @@ class DB
     }
 
     // public function all(...$arg) {
-    public function count(...$arg) {
-      // $sql="select * from $this->table ";
-      $sql="select count(*) from $this->table ";
+    public function count(...$arg)
+    {
+        // $sql="select * from $this->table ";
+        $sql="select count(*) from $this->table ";
 
-      if(isset($arg[0])) {
-          if(is_array($arg[0])) {
-              foreach($arg[0] as $key => $value) {
-                  $tmp[] = sprintf("`%s`='%s'",$key, $value); 
-              }
-              $sql = $sql . " where " . implode(" && ", $tmp);
-          }else {
-              $sql=$sql . $arg[0];
-          }
-          if(isset($arg[1])) {
-              $sql=$sql . $arg[1];
+        if (isset($arg[0])) {
+            if (is_array($arg[0])) {
+                foreach ($arg[0] as $key => $value) {
+                    $tmp[] = sprintf("`%s`='%s'", $key, $value);
+                }
+                $sql = $sql . " where " . implode(" && ", $tmp);
+            } else {
+                $sql=$sql . $arg[0];
+            }
+            if (isset($arg[1])) {
+                $sql=$sql . $arg[1];
+            }
+        }
+
+        echo $sql;
+        // return $this->pdo->query($sql)->fetchAll();
+        return $this->pdo->query($sql)->fetchColumn();
+    }
+
+    // public function count(...$arg) {
+    public function find($id)
+    {
+        // $sql="select count(*) from $this->table ";
+        $sql="select * from $this->table ";
+
+        // if(isset($arg[0])) {
+        // if(is_array($arg[0])) {
+        if (is_array($id)) {
+            // foreach($arg[0] as $key => $value) {
+            foreach ($id as $key => $value) {
+                $tmp[] = sprintf("`%s`='%s'", $key, $value);
+            }
+            $sql = $sql . " where " . implode(" && ", $tmp);
+        } else {
+            // $sql=$sql . $arg[0];
+            $sql=$sql . " where `id`='$id'";
+        }
+        // if(isset($arg[1])) {
+        //     $sql=$sql . $arg[1];
               
-          }
-      }
-
-      echo $sql;
-      // return $this->pdo->query($sql)->fetchAll();
-      return $this->pdo->query($sql)->fetchColumn();
-  }
+        echo $sql;
+        // return $this->pdo->query($sql)->fetchColumn();
+        return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        // return $this->pdo->query($sql)->fetch();
+    }
 }
+
 
 
 //  大寫代表特別意義，是我們寫程式的人自己設定，可能是常數或物件
@@ -100,19 +129,13 @@ class DB
 $User=new DB("user");
 
 echo "<pre>";
-print_r($User->count());
+print_r($User->find(['level'=>2,'visible'=>"N"]));
 echo "</pre>";
 
-echo "<pre>";
-print_r($User->count(" where name='amy' "));
-echo "</pre>";
+// echo "<pre>";
+// print_r($User->count(" where name='amy' "));
+// echo "</pre>";
 
-echo "<pre>";
-print_r($User->count(" where `visible`='Y' " , " order by `id` DESC " ));
-echo "</pre>";
-
-
-
-
-
-?>
+// echo "<pre>";
+// print_r($User->count(" where `visible`='Y' " , " order by `id` DESC " ));
+// echo "</pre>";
