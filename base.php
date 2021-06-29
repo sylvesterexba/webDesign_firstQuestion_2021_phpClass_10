@@ -18,7 +18,7 @@ $ts=[
 ];
 //新增用
 $as=[
-    "title"=>"新增網站標題",
+    "title"=>"新增網站標題圖片",
     "ad"=>"新增動態文字廣告管理",
     "mvim"=>"新增動畫圖片管理",
     "image"=>"新增校園映像圖片管理",
@@ -27,7 +27,7 @@ $as=[
     "menu"=>"新增選單管理"
 ];
 $hs=[
-    "title"=>"網站標題",
+    "title"=>"網站標題圖片",
     "ad"=>"動態文字廣告管理",
     "mvim"=>"動畫圖片管理",
     "image"=>"校園映像圖片管理",
@@ -218,7 +218,7 @@ function to($url)
 
 $Total=new DB('total');
 $Bottom=new DB('bottom');
-
+$Title=new DB('title');
 
 
 if (!isset($_SESSION['total'])) {
