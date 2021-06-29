@@ -1,7 +1,10 @@
 <?php
 session_start();
 date_default_timezone_set("Asia/Taipei");
-//
+//設定後台的抬頭文字
+
+
+
 $ts=[
     "title"=>"網站標題管理",
     "ad"=>"動態文字廣告管理",
@@ -214,3 +217,15 @@ function to($url)
 
 $Total=new DB('total');
 $Bottom=new DB('bottom');
+
+
+
+if (!isset($_SESSION['total'])) {
+    $total=$Total->find(1);
+    $total['total']++;
+    $Total->save($total);
+    $_SESSION['total']=1;
+    // print_r($total);
+}
+
+?>
