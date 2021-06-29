@@ -27,6 +27,8 @@ $hs=[
     "ad"=>"動態文字廣告管理",
     "mvim"=>"動畫圖片管理",
     "image"=>"校園映像圖片管理",
+    "total"=>"進站總人數：",
+    "bottom"=>"頁尾版權資料：",
     "news"=>"最新消息資料管理",
     "admin"=>"管理者帳號管理",
     "menu"=>"選單管理"
@@ -149,7 +151,7 @@ class DB
         }
         // if(isset($arg[1])) {
         //     $sql=$sql . $arg[1];
-              
+
         // echo $sql;
         // return $this->pdo->query($sql)->fetchColumn();
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
@@ -207,8 +209,8 @@ class DB
 //6.網頁導向功能 - to($url)
 function to($url)
 {
-    header("lication:".$url);
+    header("location:".$url);
 }
 
 $Total=new DB('total');
-
+$Bottom=new DB('bottom');
