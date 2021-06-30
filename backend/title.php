@@ -26,7 +26,7 @@
             <input type="radio" name="sh" value="<?=$value['id']; ?>" <?=($value['sh']==1)?"checked":""?>>
           </td>
           <td width="7%">
-            <input type="checkbox" name="del[]" id="<?=$value['id']; ?>">
+            <input type="checkbox" name="del[]" value="<?=$value['id']; ?>">
           </td>
           <td>
             <input type="button" value="更新圖片">
