@@ -23,16 +23,18 @@
             <input type="text" name="text" value="<?=$value['text']; ?>">
           </td>
           <td width="7%">
-            <input type="radio" name="sh" value="<?=$value['id'];?>">
+            <input type="radio" name="sh" value="<?=$value['id']; ?>">
           </td>
           <td width="7%">
-          <input type="checkbox" name="del[]" id="<?=$value['id'];?>">
+            <input type="checkbox" name="del[]" id="<?=$value['id']; ?>">
           </td>
-          <td></td>
+          <td>
+            <input type="button" value="更新圖片">
+          </td>
         </tr>
         <?php
           }
-      ?>
+        ?>
       </tbody>
     </table>
     <table style="margin-top:40px; width:70%;">
