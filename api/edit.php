@@ -5,11 +5,17 @@ $ids=$_POST['id'];
 
 foreach ($ids as $key => $id) { 
   $row=$Title->find($id);
-  // print_r($row);
-  // echo "<br>";
   $row['text']=$texts[$key];
-  // print_r($row);
-  // echo "<hr>";
+
+  // 判斷是否顯示
+  if (isset($_POST['sh']) && $_POST['sh']==$id) {
+      $row['sh']=1;
+  }else {
+      $row['sh']=0;
+  }
+  
   $Title->save($row);
 }
+
+to("../backend.php?do=title");
 

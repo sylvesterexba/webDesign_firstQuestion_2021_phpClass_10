@@ -23,7 +23,7 @@
             <input type="text" name="text[]" value="<?=$value['text']; ?>">
           </td>
           <td width="7%">
-            <input type="radio" name="sh" value="<?=$value['id']; ?>">
+            <input type="radio" name="sh" value="<?=$value['id']; ?>" <?=($value['sh']==1)?"checked":""?>>
           </td>
           <td width="7%">
             <input type="checkbox" name="del[]" id="<?=$value['id']; ?>">
