@@ -16,7 +16,7 @@
               ?>
         <tr>
           <td>
-            <img src="img/<?=$value['img']; ?>" style="width:150px;height:120px;">
+            <img src="img/<?=$value['img']; ?>" style="width:100px;height:68px;">
           </td>
           <td>
             <input type="checkbox" name="sh[]" value="<?=$value['id']; ?>" <?=($value['sh']==1)?"checked":""?>>
