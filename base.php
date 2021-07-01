@@ -226,6 +226,7 @@ $Title=new DB('title');
 $Ad=new DB('ad');
 $Mvim=new DB('mvim');
 $Image=new DB('image');
+$News=new DB('news');
 
 if (!isset($_SESSION['total'])) {
     $total=$Total->find(1);
