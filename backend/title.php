@@ -45,7 +45,11 @@
             <input type="button" onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/<?=$do;?>.php&#39;)"
               value="<?=$as[$do];?>">
           </td>
-          <td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
+          <td class="cent">
+            <input type="submit" value="修改確定">
+            <input type="reset" value="重置">
+            <input type="hidden" name="table" value="<?=$do;?>">
+          </td>
         </tr>
       </tbody>
     </table>
