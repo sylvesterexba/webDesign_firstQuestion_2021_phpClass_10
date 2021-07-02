@@ -219,7 +219,7 @@ function to($url)
     header("location:".$url);
 }
 
-
+// 呼叫資料庫
 $Total=new DB('total');
 $Bottom=new DB('bottom');
 $Title=new DB('title');
@@ -228,6 +228,7 @@ $Mvim=new DB('mvim');
 $Image=new DB('image');
 $News=new DB('news');
 $Admin=new DB('admin');
+$Menu=new DB('menu');
 
 if (!isset($_SESSION['total'])) {
     $total=$Total->find(1);

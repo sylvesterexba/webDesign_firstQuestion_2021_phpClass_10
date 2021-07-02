@@ -13,19 +13,28 @@ foreach ($ids as $key => $id) {
         // $row['text']=$texts[$key];
 
         switch ($table) {
+
           case 'title':
             $row['sh']=(isset($_POST['sh']) && $_POST['sh']==$id)?1:0;
             $row['text']=$_POST['text'][$key];
           break;
+
           case 'admin':
             $row['acc']=$_POST['acc'][$key];
             $row['pw']=$_POST['pw'][$key];
-            break;
+          break;
 
-            default:
+          case 'menu':
             $row['sh']=(isset($_POST['sh']) && in_array($id, $_POST['sh']))?1:0;
             $row['text']=$_POST['text'][$key];
-            break;
+            $row['href']=$_POST['href'][$key];
+          break;
+
+          default:
+            $row['sh']=(isset($_POST['sh']) && in_array($id, $_POST['sh']))?1:0;
+            $row['text']=$_POST['text'][$key];
+            
+          break;
 
         }
   
