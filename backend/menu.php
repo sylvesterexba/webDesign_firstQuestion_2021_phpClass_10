@@ -18,30 +18,31 @@
       $rows=$Menu->all(['parent'=>0]);
       foreach ($rows as $key => $value) {
           ?>
-    <tr>
-<!-- 呼叫資料庫對應的欄位 -->
-      <td>
-        <input type="text" name="text[]" value="<?=$value['text']; ?>" style="width:90%">
-      </td>
-      <td>
-        <input type="text" name="href[]" value="<?=$value['href']; ?>" style="width:90%">
-      </td>
-      <td>
-        <?=$Menu->count(['parent'=>$value['id']]);?>
-      </td>
-      <td>
-        <input type="checkbox" name="sh[]" value="<?=$value['id']; ?>" <?=($value['sh']==1)?'checked':"";?>>
-      </td>
-      <td>
-        <input type="checkbox" name="del[]" value="<?=$value['id']; ?>">
-      </td>
-      <td>
-        <input type="button" value="編輯次選單">
-      </td>
+        <tr>
+          <!-- 呼叫資料庫對應的欄位 -->
+          <td>
+            <input type="text" name="text[]" value="<?=$value['text']; ?>" style="width:90%">
+          </td>
+          <td>
+            <input type="text" name="href[]" value="<?=$value['href']; ?>" style="width:90%">
+          </td>
+          <td>
+            <?=$Menu->count(['parent'=>$value['id']]); ?>
+          </td>
+          <td>
+            <input type="checkbox" name="sh[]" value="<?=$value['id']; ?>" <?=($value['sh']==1)?'checked':""; ?>>
+          </td>
+          <td>
+            <input type="checkbox" name="del[]" value="<?=$value['id']; ?>">
+          </td>
+          <td>
+            <input type="button" value="編輯次選單"
+              onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/submenu.php?id=<?=$value['id']; ?>&#39;)">
+          </td>
 
-      <input type="hidden" name="id[]" value="<?=$value['id'];?>">
-    </tr>
-    <?php
+          <input type="hidden" name="id[]" value="<?=$value['id']; ?>">
+        </tr>
+        <?php
       }
     ?>
       </tbody>
