@@ -10,29 +10,55 @@
         </tr>
 
         <?php
-      
-      $rows=$News->all();
+// 分頁函式(
+$all=$News->count();
+// division
+// 每頁筆數
+$div=4;
+$pages=ceil($all/$div);
+// 三元運算
+$now=isset($_GET['p'])?$_GET['p']:1;
+$start=($now-1)*$div;
+$rows=$News->all(" limit $start,$div");
+// )分頁函式
       foreach ($rows as $key => $value) {
           ?>
-    <tr>
+        <tr>
 
-      <td>
-        <textarea name="text[]" style="width:90%;height:50px"><?=$value['text']; ?></textarea>
-      </td>
-      <td>
-        <input type="checkbox" name="sh[]" value="<?=$value['id']; ?>" <?=($value['sh']==1)?"checked":""?>>
-      </td>
-      <td>
-        <input type="checkbox" name="del[]" value="<?=$value['id']; ?>">
-      </td>
+          <td>
+            <textarea name="text[]" style="width:90%;height:50px"><?=$value['text']; ?></textarea>
+          </td>
+          <td>
+            <input type="checkbox" name="sh[]" value="<?=$value['id']; ?>" <?=($value['sh']==1)?"checked":""?>>
+          </td>
+          <td>
+            <input type="checkbox" name="del[]" value="<?=$value['id']; ?>">
+          </td>
 
-      <input type="hidden" name="id[]" value="<?=$value['id'];?>">
-    </tr>
-    <?php
+          <input type="hidden" name="id[]" value="<?=$value['id']; ?>">
+        </tr>
+        <?php
       }
     ?>
       </tbody>
     </table>
+    <div class="cent">
+      <?php
+if (($now-1)>0) {
+        echo "<a href='?do=news&p=".($now-1)."'> < </a>";
+    }
+
+for ($i=1;$i<=$pages;$i++) {
+    $fontsize=($now==$i)?'24px':'16px';
+    echo "<a href='?do=news&p=$i' style='font-size:$fontsize'> $i </a>";
+}
+
+if (($now+1)<=$pages) {
+    echo "<a href='?do=news&p=".($now+1)."'> > </a>";
+}
+
+?>
+    </div>
     <table style="margin-top:40px; width:70%;">
       <tbody>
         <tr>

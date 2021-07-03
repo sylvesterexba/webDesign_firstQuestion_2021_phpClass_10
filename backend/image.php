@@ -9,15 +9,18 @@
           <td width="10%">刪除</td>
           <td></td>
         </tr>
-        <?php
+<?php
+// 分頁函式(
 $all=$Image->count();
 // division
+// 每頁筆數
 $div=3;
 $pages=ceil($all/$div);
 // 三元運算
 $now=isset($_GET['p'])?$_GET['p']:1;
 $start=($now-1)*$div;
 $rows=$Image->all(" limit $start,$div");
+// )分頁函式
           foreach ($rows as $key => $value) {
               ?>
         <tr>
@@ -41,6 +44,7 @@ $rows=$Image->all(" limit $start,$div");
         ?>
       </tbody>
     </table>
+    <!-- 分頁button -->
     <div class="cent">
       <?php
 if (($now-1)>0) {
@@ -48,7 +52,7 @@ if (($now-1)>0) {
         }
 
 for ($i=1;$i<=$pages;$i++) {
-  $fontsize=($now==$i)?'24px':'16px';
+    $fontsize=($now==$i)?'24px':'16px';
     echo "<a href='?do=image&p=$i' style='font-size:$fontsize'> $i </a>";
 }
 
