@@ -12,6 +12,18 @@
   <link href="./css/css.css" rel="stylesheet" type="text/css">
   <script src="./js/jquery-1.9.1.min.js"></script>
   <script src="./js/js.js"></script>
+  <style>
+    .menu-style{
+      color:#000; font-size:13px; text-decoration:none;
+    }
+    a{
+      text-decoration:none;
+    }
+    a:hover{
+      text-decoration:underline;
+    }
+  </style>
+
 </head>
 
 <body>
