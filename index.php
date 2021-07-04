@@ -33,6 +33,30 @@
         <div id="menuput" class="dbor">
           <!--主選單放此-->
           <span class="t botli">主選單區</span>
+          <?php
+$mus=$Menu->all(['sh'=>1,'parent'=>0]);
+foreach ($mus as $key => $value) {
+    echo "<div class='mainmu cent'>";
+    echo "<a href='{$value['href']}'>{$value['text']}</a>";
+    // 以下放次選單
+    echo "<div class='mw' style='display:none'>";
+
+    $subs=$Menu->all(['parent'=>$value['id']]);
+    foreach ($subs as $k => $v) {
+        echo "<div class='mainmu2 cent'>";
+        echo "<a href='{$v['href']}'>{$v['text']}</a>";
+      
+        echo "</div>";
+    }
+    echo "</div>";
+    
+    echo "</div>";
+}
+
+
+?>
+
+
         </div>
         <div class="dbor" style="margin:3px; width:95%; height:20%; line-height:100px;">
           <span class="t">進站總人數 :<?=$Total->find(1)['total'];?></span>

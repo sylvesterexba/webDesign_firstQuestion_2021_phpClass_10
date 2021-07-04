@@ -1,4 +1,5 @@
 // JavaScript Document
+
 $(document).ready(function(e) {
     $(".mainmu").mouseover(
 		function()
@@ -13,6 +14,7 @@ $(document).ready(function(e) {
 		}
 	)
 });
+
 function lo(x)
 {
 	location.replace(x)
