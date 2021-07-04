@@ -24,7 +24,8 @@
   </div>
   <div id="main">
     <a title="<?=$Title->find(['sh'=>1])['text'];?>" href="index.php" alt="">
-      <div class="ti" style="background:url(&#39;img/<?=$Title->find(['sh'=>1])['img'];?>&#39;); background-size:cover;"></div>
+      <div class="ti"
+        style="background:url(&#39;img/<?=$Title->find(['sh'=>1])['img'];?>&#39;); background-size:cover;"></div>
       <!--標題圖片-->
     </a>
     <div id="ms">
@@ -41,10 +42,10 @@
                         $file=(isset($_GET['do']))?$_GET['do']:'main';
                         $file="front/".$file.".php";
                         // 先判斷檔案是否存在
-                        if(file_exists($file)) {
-                          include $file;
-                        }else {
-                          include "front/main.php";
+                        if (file_exists($file)) {
+                            include $file;
+                        } else {
+                            include "front/main.php";
                         }
 
             // switch ($do) {
@@ -64,19 +65,38 @@
           onclick="lo(&#39;?do=login&#39;)">管理登入</button>
         <div style="width:89%; height:480px;" class="dbor">
           <span class="t botli">校園映象區</span>
+          <div class="cent" onclick='pp(1)'>
+            <img src="icon/up.jpg">
+          </div>
+          <?php
+              $imgs=$Image->all(['sh'=>1]);
+              foreach ($imgs as $key => $img) {
+                  echo "<div class='cent im' id='ssaa$key'>";
+                  echo "<img src='img/{$img['img']}' style='width:150px;height:103px;margin:2px;border:3px solid orange'>";
+
+                  echo"</div>";
+              }
+
+
+              ?>
+          <div class="cent" onclick='pp(2)'>
+            <img src="icon/dn.jpg">
+          </div>
+
           <script>
           var nowpage = 0,
-            num = 0;
+            num = <?=$Image->count(['sh'=>1]);?>;
 
           function pp(x) {
             var s, t;
             if (x == 1 && nowpage - 1 >= 0) {
               nowpage--;
             }
-            if (x == 2 && (nowpage + 1) * 3 <= num * 1 + 3) {
+            if (x == 2 && (nowpage + 1) <= (num - 3)) {
               nowpage++;
             }
             $(".im").hide()
+
             for (s = 0; s <= 2; s++) {
               t = s * 1 + nowpage * 1;
               $("#ssaa" + t).show()
